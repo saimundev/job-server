@@ -1,35 +1,33 @@
-import express from "express";
-import cors from "cors";
-import * as dotenv from 'dotenv' 
-import connectDb from "./models/db.js";
-import prodectRouter from "./routes/prodect.js"
-import orderRouter from "./routes/order.js"
+import express from "express"
+import cors from "cors"
+import * as dotenv from 'dotenv'
+import dbConnect from "./models/db.js";
+import userRouter from "./routes/userRoute.js";
 
 
-//INIT APP
+//init app
 const app = express();
 
-//DOTENV CONFIGE
+//dot env config
 dotenv.config()
 
-//DATABASE CONNECT
-connectDb();
+//database connection
+dbConnect();
 
-//PORT
+//port
 const port = process.env.PORT || 5050;
 
-//MIDDLEARE
-app.use(express.json());
+//middleware
 app.use(cors());
+app.use(express.json());
 
-//ROUTER
-app.use("/api/prodect",prodectRouter);
-app.use("/api/order",orderRouter);
-
-
+//routes
+app.use("/api/auth",userRouter)
 
 
-//SERVER
+
+
+//create server
 app.listen(port,()=>{
-    console.log(`server is raning on the port is ${port}`);
+    console.log("server is runing on the port is 5050")
 })
